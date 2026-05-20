@@ -191,7 +191,7 @@ The dataset contains:
 
 ## 🔹 Home Page
 
-<img width="100%" alt="Home Page" src="home.png">
+<img width="100%" alt="Home Page" src="before.png">
 
 The home page allows users to:
 - Enter customer details
@@ -203,7 +203,7 @@ The home page allows users to:
 
 ## 🔹 Prediction Result
 
-<img width="100%" alt="Prediction Result" src="prediction.png">
+<img width="100%" alt="Prediction Result" src="after.png">
 
 After prediction, the system displays:
 - Churn prediction result
