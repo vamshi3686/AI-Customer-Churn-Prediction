@@ -1,0 +1,43 @@
+2026-04-03 18:07:06,853 - INFO - total columns in x_train=(5634, 16)
+2026-04-03 18:07:06,853 - INFO - total columns in x_test=(1409, 16)
+2026-04-03 18:07:06,853 - INFO - before one hot encoding x_train column names :Index(['gender', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines',
+       'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection',
+       'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract',
+       'PaperlessBilling', 'PaymentMethod', 'sim_column'],
+      dtype='str')
+2026-04-03 18:07:06,853 - INFO - before one hot encoding x_test column names :Index(['gender', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines',
+       'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection',
+       'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract',
+       'PaperlessBilling', 'PaymentMethod', 'sim_column'],
+      dtype='str')
+2026-04-03 18:07:06,906 - INFO - ---------------------------------------------------------------------
+2026-04-03 18:07:06,906 - INFO - after one hot encoding x_train column names :Index(['gender_Male', 'Partner_Yes', 'Dependents_Yes', 'PhoneService_Yes',
+       'MultipleLines_No phone service', 'MultipleLines_Yes',
+       'InternetService_Fiber optic', 'InternetService_No',
+       'OnlineSecurity_No internet service', 'OnlineSecurity_Yes',
+       'OnlineBackup_No internet service', 'OnlineBackup_Yes',
+       'DeviceProtection_No internet service', 'DeviceProtection_Yes',
+       'TechSupport_No internet service', 'TechSupport_Yes',
+       'StreamingTV_No internet service', 'StreamingTV_Yes',
+       'StreamingMovies_No internet service', 'StreamingMovies_Yes',
+       'PaperlessBilling_Yes', 'PaymentMethod_Credit card (automatic)',
+       'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check',
+       'sim_column_BSNL', 'sim_column_Idea', 'sim_column_Reliancejio',
+       'Contract_od'],
+      dtype='str')
+2026-04-03 18:07:06,906 - INFO - after one hot encoding x_test column names :Index(['gender_Male', 'Partner_Yes', 'Dependents_Yes', 'PhoneService_Yes',
+       'MultipleLines_No phone service', 'MultipleLines_Yes',
+       'InternetService_Fiber optic', 'InternetService_No',
+       'OnlineSecurity_No internet service', 'OnlineSecurity_Yes',
+       'OnlineBackup_No internet service', 'OnlineBackup_Yes',
+       'DeviceProtection_No internet service', 'DeviceProtection_Yes',
+       'TechSupport_No internet service', 'TechSupport_Yes',
+       'StreamingTV_No internet service', 'StreamingTV_Yes',
+       'StreamingMovies_No internet service', 'StreamingMovies_Yes',
+       'PaperlessBilling_Yes', 'PaymentMethod_Credit card (automatic)',
+       'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check',
+       'sim_column_BSNL', 'sim_column_Idea', 'sim_column_Reliancejio',
+       'Contract_od'],
+      dtype='str')
+2026-04-03 18:07:06,906 - INFO - total columns in x_train=(5634, 28)
+2026-04-03 18:07:06,906 - INFO - total columns in x_test=(1409, 28)

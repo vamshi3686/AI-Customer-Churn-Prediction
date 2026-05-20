@@ -1,0 +1,10 @@
+2026-04-03 18:07:06,695 - INFO - before column names:Index(['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges'], dtype='str')
+2026-04-03 18:07:06,762 - INFO - after transformation columns:Index(['SeniorCitizen', 'TotalCharges_var', 'MonthlyCharges_boxcox',
+       'tenure_scaled'],
+      dtype='str')
+2026-04-03 18:07:06,770 - INFO - After Train Column Name : Index(['SeniorCitizen', 'TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')
+2026-04-03 18:07:06,770 - INFO - After Test Column Name : Index(['SeniorCitizen', 'TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')

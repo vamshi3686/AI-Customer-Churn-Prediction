@@ -1,0 +1,13 @@
+2026-04-03 18:07:06,770 - INFO - total columns in x_train=(5634, 4)
+2026-04-03 18:07:06,770 - INFO - total columns in x_test=(1409, 4)
+2026-04-03 18:07:06,770 - INFO - x_train.columns Index(['SeniorCitizen', 'TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')
+2026-04-03 18:07:06,853 - INFO - after performing feature engineering x_train_columns= Index(['TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')
+2026-04-03 18:07:06,853 - INFO - x_test_columns=Index(['TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')
+2026-04-03 18:07:06,853 - INFO - total columns in x_train=(5634, 3)
+2026-04-03 18:07:06,853 - INFO - total columns in x_test=(1409, 3)

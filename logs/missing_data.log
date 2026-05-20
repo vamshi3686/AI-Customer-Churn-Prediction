@@ -1,0 +1,90 @@
+2026-04-03 18:07:06,679 - INFO - total columns in x_train=(5634, 20)
+2026-04-03 18:07:06,679 - INFO - total columns in x_test=(1409, 20)
+2026-04-03 18:07:06,679 - INFO - Before handling data
+2026-04-03 18:07:06,679 - INFO - total no of null values in x_trian gender               0
+SeniorCitizen        0
+Partner              0
+Dependents           0
+tenure               0
+PhoneService         0
+MultipleLines        0
+InternetService      0
+OnlineSecurity       0
+OnlineBackup         0
+DeviceProtection     0
+TechSupport          0
+StreamingTV          0
+StreamingMovies      0
+Contract             0
+PaperlessBilling     0
+PaymentMethod        0
+MonthlyCharges       0
+TotalCharges        10
+sim_column           0
+dtype: int64
+2026-04-03 18:07:06,679 - INFO - total no of null values in x_trian gender              0
+SeniorCitizen       0
+Partner             0
+Dependents          0
+tenure              0
+PhoneService        0
+MultipleLines       0
+InternetService     0
+OnlineSecurity      0
+OnlineBackup        0
+DeviceProtection    0
+TechSupport         0
+StreamingTV         0
+StreamingMovies     0
+Contract            0
+PaperlessBilling    0
+PaymentMethod       0
+MonthlyCharges      0
+TotalCharges        1
+sim_column          0
+dtype: int64
+2026-04-03 18:07:06,679 - INFO - After handling data
+2026-04-03 18:07:06,695 - INFO - total no of null values in x_trian gender              0
+SeniorCitizen       0
+Partner             0
+Dependents          0
+tenure              0
+PhoneService        0
+MultipleLines       0
+InternetService     0
+OnlineSecurity      0
+OnlineBackup        0
+DeviceProtection    0
+TechSupport         0
+StreamingTV         0
+StreamingMovies     0
+Contract            0
+PaperlessBilling    0
+PaymentMethod       0
+MonthlyCharges      0
+TotalCharges        0
+sim_column          0
+dtype: int64
+2026-04-03 18:07:06,695 - INFO - total no of null values in x_trian gender              0
+SeniorCitizen       0
+Partner             0
+Dependents          0
+tenure              0
+PhoneService        0
+MultipleLines       0
+InternetService     0
+OnlineSecurity      0
+OnlineBackup        0
+DeviceProtection    0
+TechSupport         0
+StreamingTV         0
+StreamingMovies     0
+Contract            0
+PaperlessBilling    0
+PaymentMethod       0
+MonthlyCharges      0
+TotalCharges        0
+sim_column          0
+dtype: int64
+2026-04-03 18:07:06,695 - INFO - total columns in x_train=(5634, 20)
+2026-04-03 18:07:06,695 - INFO - total columns in x_test=(1409, 20)

@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Churn Predictor — Telecom AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#edf4ff;
+  --surface:#ffffff;
+  --surface2:#f8fbff;
+
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --primary-light:#dbeafe;
+
+  --text:#0f172a;
+  --muted:#64748b;
+
+  --border:#dbe7f5;
+
+  --success:#10b981;
+  --danger:#ef4444;
+
+  --shadow:
+    0 10px 30px rgba(37,99,235,0.08);
+
+  --shadow-hover:
+    0 18px 40px rgba(37,99,235,0.14);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:
+    linear-gradient(135deg,#f8fbff 0%,#edf4ff 100%);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+
+  background-image:
+    linear-gradient(rgba(37,99,235,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,0.04) 1px, transparent 1px);
+
+  background-size:40px 40px;
+  pointer-events:none;
+}
+
+.wrapper{
+  position:relative;
+  z-index:1;
+  max-width:1450px;
+  margin:auto;
+  padding:38px 22px 60px;
+}
+
+/* HEADER */
+
+header{
+  text-align:center;
+  margin-bottom:42px;
+}
+
+.tag{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  background:#dbeafe;
+  border:1px solid rgba(37,99,235,0.15);
+
+  color:var(--primary);
+
+  padding:12px 22px;
+  border-radius:999px;
+
+  font-size:11px;
+  font-weight:700;
+
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+h1{
+  font-family:'Syne',sans-serif;
+
+  font-size:clamp(44px,6vw,72px);
+
+  line-height:1;
+
+  margin-top:22px;
+
+  font-weight:800;
+
+  letter-spacing:-0.05em;
+
+  color:var(--primary-dark);
+}
+
+.subtitle{
+  margin-top:18px;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  letter-spacing:0.16em;
+}
+
+/* LAYOUT */
+
+.main-grid{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:24px;
+  align-items:start;
+}
+
+/* COMMON CARD */
+
+.sim-panel,
+.section-card,
+.result-panel{
+  background:var(--surface);
+
+  border:1px solid var(--border);
+
+  border-radius:24px;
+
+  box-shadow:var(--shadow);
+}
+
+/* LEFT PANEL */
+
+.sim-panel{
+  position:sticky;
+  top:20px;
+  overflow:hidden;
+}
+
+.panel-header,
+.section-title{
+  border-bottom:1px solid var(--border);
+}
+
+.panel-header{
+  padding:22px;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  background:var(--surface2);
+}
+
+.panel-header .dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--primary);
+}
+
+.panel-header h2{
+  font-family:'Syne',sans-serif;
+  font-size:15px;
+  letter-spacing:0.04em;
+}
+
+.sim-list{
+  padding:18px;
+
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+/* SIM CARD */
+
+.sim-card{
+  position:relative;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+
+  padding:18px;
+
+  cursor:pointer;
+
+  transition:.3s ease;
+}
+
+.sim-card:hover{
+  transform:translateY(-3px);
+
+  border-color:rgba(37,99,235,0.35);
+
+  box-shadow:var(--shadow-hover);
+}
+
+.sim-card.selected{
+  border-color:var(--primary);
+
+  background:#eff6ff;
+
+  box-shadow:
+    0 0 0 3px rgba(37,99,235,0.08);
+}
+
+.sim-inner{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.sim-logo{
+  width:58px;
+  height:58px;
+
+  border-radius:16px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:15px;
+
+  background:#eff6ff;
+
+  color:var(--primary);
+
+  border:1px solid rgba(37,99,235,0.10);
+}
+
+.sim-name{
+  font-family:'Syne',sans-serif;
+  font-size:16px;
+  font-weight:700;
+}
+
+.sim-desc{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.sim-check{
+  width:24px;
+  height:24px;
+
+  margin-left:auto;
+
+  border-radius:50%;
+
+  border:1px solid var(--border);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#fff;
+}
+
+.sim-card.selected .sim-check{
+  background:var(--primary);
+  border-color:var(--primary);
+}
+
+/* SIGNAL */
+
+.signal-bars{
+  display:flex;
+  align-items:flex-end;
+  gap:3px;
+  margin-top:10px;
+}
+
+.signal-bars span{
+  width:5px;
+  border-radius:6px;
+  background:#bfdbfe;
+}
+
+.sim-card.selected .signal-bars span{
+  background:var(--primary);
+}
+
+/* RIGHT */
+
+.right-panel{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* SECTION TITLE */
+
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:18px 22px;
+
+  font-family:'Syne',sans-serif;
+
+  font-size:12px;
+
+  letter-spacing:0.14em;
+
+  text-transform:uppercase;
+
+  background:var(--surface2);
+
+  color:#334155;
+}
+
+.icon{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:var(--primary);
+}
+
+.step-badge{
+  width:24px;
+  height:24px;
+
+  border-radius:50%;
+
+  background:#dbeafe;
+
+  color:var(--primary);
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:10px;
+  font-weight:700;
+}
+
+/* FIELDS */
+
+.fields-grid{
+  padding:22px;
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  gap:18px;
+}
+
+.fields-grid.cols-3{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.fields-grid.cols-1{
+  grid-template-columns:1fr;
+}
+
+.field-group,
+.toggle-group{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+label,
+.toggle-label{
+  color:#475569;
+
+  font-size:11px;
+
+  font-weight:700;
+
+  letter-spacing:0.08em;
+
+  text-transform:uppercase;
+}
+
+/* INPUTS */
+
+select,
+input{
+  width:100%;
+
+  padding:14px 16px;
+
+  border-radius:14px;
+
+  border:1px solid var(--border);
+
+  background:#fff;
+
+  color:var(--text);
+
+  font-family:'Inter',sans-serif;
+
+  font-size:14px;
+
+  transition:.25s ease;
+}
+
+select:hover,
+input:hover{
+  border-color:#93c5fd;
+}
+
+select:focus,
+input:focus{
+  outline:none;
+
+  border-color:var(--primary);
+
+  box-shadow:
+    0 0 0 4px rgba(37,99,235,0.10);
+}
+
+.select-wrap{
+  position:relative;
+}
+
+.select-wrap::after{
+  content:'⌄';
+
+  position:absolute;
+
+  right:16px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  color:var(--muted);
+
+  pointer-events:none;
+}
+
+/* TOGGLE */
+
+.toggle-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  padding:14px 16px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  transition:.25s ease;
+}
+
+.toggle-row:hover{
+  background:#f8fbff;
+
+  border-color:#93c5fd;
+}
+
+.toggle-row.active{
+  background:#eff6ff;
+
+  border-color:rgba(37,99,235,0.45);
+}
+
+.toggle-switch{
+  width:46px;
+  height:24px;
+
+  background:#cbd5e1;
+
+  border-radius:999px;
+
+  position:relative;
+
+  transition:.3s ease;
+
+  flex-shrink:0;
+}
+
+.toggle-switch::after{
+  content:'';
+
+  position:absolute;
+
+  width:18px;
+  height:18px;
+
+  background:#fff;
+
+  border-radius:50%;
+
+  top:3px;
+  left:3px;
+
+  transition:.3s ease;
+
+  box-shadow:0 2px 5px rgba(0,0,0,0.15);
+}
+
+.toggle-row.active .toggle-switch{
+  background:var(--primary);
+}
+
+.toggle-row.active .toggle-switch::after{
+  left:25px;
+}
+
+/* BUTTON */
+
+.submit-section{
+  padding:24px;
+}
+
+.submit-btn{
+  width:100%;
+
+  border:none;
+
+  border-radius:18px;
+
+  padding:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #60a5fa
+    );
+
+  color:#fff;
+
+  font-family:'Syne',sans-serif;
+
+  font-size:14px;
+
+  font-weight:800;
+
+  letter-spacing:0.12em;
+
+  text-transform:uppercase;
+
+  cursor:pointer;
+
+  transition:.3s ease;
+
+  box-shadow:
+    0 14px 28px rgba(37,99,235,0.18);
+}
+
+.submit-btn:hover{
+  transform:translateY(-3px);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary-dark),
+      var(--primary)
+    );
+
+  box-shadow:
+    0 18px 36px rgba(37,99,235,0.22);
+}
+
+/* RESULT */
+
+.result-panel{
+  display:none;
+
+  padding:36px;
+
+  text-align:center;
+}
+
+.result-panel.show{
+  display:block;
+}
+
+.result-label{
+  color:var(--muted);
+
+  font-size:11px;
+
+  letter-spacing:0.16em;
+
+  text-transform:uppercase;
+}
+
+.result-value{
+  margin-top:14px;
+
+  font-family:'Syne',sans-serif;
+
+  font-size:68px;
+
+  font-weight:800;
+
+  color:var(--primary);
+}
+
+.result-status{
+  display:inline-block;
+
+  margin-top:18px;
+
+  padding:10px 18px;
+
+  border-radius:999px;
+
+  font-size:13px;
+
+  font-weight:700;
+}
+
+.result-status.high{
+  background:#fef2f2;
+
+  color:var(--danger);
+
+  border:1px solid #fecaca;
+}
+
+.result-status.low{
+  background:#ecfdf5;
+
+  color:var(--success);
+
+  border:1px solid #bbf7d0;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:1000px){
+
+  .main-grid{
+    grid-template-columns:1fr;
+  }
+
+  .sim-panel{
+    position:relative;
+    top:0;
+  }
+}
+
+@media (max-width:700px){
+
+  .form-row,
+  .fields-grid,
+  .fields-grid.cols-3{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:48px;
+  }
+
+  .wrapper{
+    padding:20px 14px 40px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <header>
+    <div class="tag">◈ Telecom AI — Churn Intelligence</div>
+    <h1>Customer Churn<br>Predictor</h1>
+    <p class="subtitle">// FILL IN CUSTOMER DETAILS TO GENERATE A PREDICTION</p>
+  </header>
+
+  <form id="churnForm">
+  <div class="main-grid">
+
+    <!-- ══ LEFT: SIM SELECTOR ══ -->
+    <div class="sim-panel">
+      <div class="panel-header">
+        <div class="dot"></div>
+        <h2>Select Network Provider</h2>
+      </div>
+
+      <div class="sim-list">
+
+        <!-- BSNL -->
+        <div class="sim-card" data-sim="BSNL" onclick="selectSim(this)">
+          <div class="sim-inner">
+            <div class="sim-logo">BSNL</div>
+            <div class="sim-info">
+              <div class="sim-name">BSNL</div>
+              <div class="sim-desc">Bharat Sanchar Nigam</div>
+              <div class="signal-bars">
+                <span style="height:6px"></span>
+                <span style="height:9px"></span>
+                <span style="height:13px"></span>
+                <span style="height:17px"></span>
+              </div>
+            </div>
+            <div class="sim-check">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <path d="M1 4L3.5 6.5L9 1" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Idea -->
+        <div class="sim-card" data-sim="Idea" onclick="selectSim(this)">
+          <div class="sim-inner">
+            <div class="sim-logo">Vi</div>
+            <div class="sim-info">
+              <div class="sim-name">Idea (Vi)</div>
+              <div class="sim-desc">Vodafone Idea</div>
+              <div class="signal-bars">
+                <span style="height:6px"></span>
+                <span style="height:9px"></span>
+                <span style="height:13px"></span>
+                <span style="height:17px"></span>
+              </div>
+            </div>
+            <div class="sim-check">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <path d="M1 4L3.5 6.5L9 1" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jio -->
+        <div class="sim-card" data-sim="Reliancejio" onclick="selectSim(this)">
+          <div class="sim-inner">
+            <div class="sim-logo">JIO</div>
+            <div class="sim-info">
+              <div class="sim-name">Reliance Jio</div>
+              <div class="sim-desc">Jio Platforms Ltd.</div>
+              <div class="signal-bars">
+                <span style="height:6px"></span>
+                <span style="height:9px"></span>
+                <span style="height:13px"></span>
+                <span style="height:17px"></span>
+              </div>
+            </div>
+            <div class="sim-check">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <path d="M1 4L3.5 6.5L9 1" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Airtel -->
+        <div class="sim-card" data-sim="Airtel" onclick="selectSim(this)">
+          <div class="sim-inner">
+            <div class="sim-logo">ATL</div>
+            <div class="sim-info">
+              <div class="sim-name">Airtel</div>
+              <div class="sim-desc">Bharti Airtel Ltd.</div>
+              <div class="signal-bars">
+                <span style="height:6px"></span>
+                <span style="height:9px"></span>
+                <span style="height:13px"></span>
+                <span style="height:17px"></span>
+              </div>
+            </div>
+            <div class="sim-check">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <path d="M1 4L3.5 6.5L9 1" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Hidden input to carry sim value -->
+      <input type="hidden" id="sim_value" name="sim_column" value="">
+    </div>
+
+    <!-- ══ RIGHT: FORM FIELDS ══ -->
+    <div class="right-panel">
+
+      <!-- Row 1: Demographics + Account -->
+      <div class="form-row">
+
+        <!-- Demographics -->
+        <div class="section-card">
+          <div class="section-title">
+            <div class="icon"></div>
+            <span class="step-badge">1</span>
+            Demographics
+          </div>
+          <div class="fields-grid">
+            <div class="field-group">
+              <label>Gender</label>
+              <div class="select-wrap">
+                <select name="gender_Male">
+                  <option value="0">Female</option>
+                  <option value="1">Male</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Partner</label>
+              <div class="select-wrap">
+                <select name="Partner_Yes">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Dependents</label>
+              <div class="select-wrap">
+                <select name="Dependents_Yes">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Paperless Billing</label>
+              <div class="select-wrap">
+                <select name="PaperlessBilling_Yes">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Services -->
+        <div class="section-card">
+          <div class="section-title">
+            <div class="icon" style="background:var(--accent3)"></div>
+            <span class="step-badge">2</span>
+            Phone Services
+          </div>
+          <div class="fields-grid cols-1" style="gap:10px">
+            <div class="toggle-group">
+              <div class="toggle-label">Phone Service</div>
+              <div class="toggle-row" onclick="toggleField(this, 'PhoneService_Yes')">
+                <span class="toggle-text">Active</span>
+                <div class="toggle-switch"></div>
+                <input type="hidden" name="PhoneService_Yes" value="0">
+              </div>
+            </div>
+            <div class="toggle-group">
+              <div class="toggle-label">Multiple Lines</div>
+              <div class="toggle-row" onclick="toggleField(this, 'MultipleLines_Yes')">
+                <span class="toggle-text">Enabled</span>
+                <div class="toggle-switch"></div>
+                <input type="hidden" name="MultipleLines_Yes" value="0">
+              </div>
+              <div class="toggle-row" onclick="toggleField(this, 'MultipleLines_No phone service')">
+                <span class="toggle-text">No Phone Service</span>
+                <div class="toggle-switch"></div>
+                <input type="hidden" name="MultipleLines_No phone service" value="0">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 2: Internet Services -->
+      <div class="section-card">
+        <div class="section-title">
+          <div class="icon" style="background:#7c3aed"></div>
+          <span class="step-badge">3</span>
+          Internet & Add-On Services
+        </div>
+        <div class="fields-grid cols-3">
+
+          <div class="field-group">
+            <label>Internet Service</label>
+            <div class="select-wrap">
+              <select name="InternetService" onchange="handleInternetService(this)">
+                <option value="DSL">DSL</option>
+                <option value="Fiber optic">Fiber Optic</option>
+                <option value="No">No Internet</option>
+              </select>
+            </div>
+            <input type="hidden" name="InternetService_Fiber optic" value="0">
+            <input type="hidden" name="InternetService_No" value="0">
+          </div>
+
+          <div class="toggle-group">
+            <div class="toggle-label">Online Security</div>
+            <div class="toggle-row" onclick="toggleField(this, 'OnlineSecurity_Yes')">
+              <span class="toggle-text">Active</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="OnlineSecurity_Yes" value="0">
+            </div>
+            <div class="toggle-row" onclick="toggleField(this, 'OnlineSecurity_No internet service')">
+              <span class="toggle-text">No Internet</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="OnlineSecurity_No internet service" value="0">
+            </div>
+          </div>
+
+          <div class="toggle-group">
+            <div class="toggle-label">Online Backup</div>
+            <div class="toggle-row" onclick="toggleField(this, 'OnlineBackup_Yes')">
+              <span class="toggle-text">Active</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="OnlineBackup_Yes" value="0">
+            </div>
+            <div class="toggle-row" onclick="toggleField(this, 'OnlineBackup_No internet service')">
+              <span class="toggle-text">No Internet</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="OnlineBackup_No internet service" value="0">
+            </div>
+          </div>
+
+          <div class="toggle-group">
+            <div class="toggle-label">Device Protection</div>
+            <div class="toggle-row" onclick="toggleField(this, 'DeviceProtection_Yes')">
+              <span class="toggle-text">Active</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="DeviceProtection_Yes" value="0">
+            </div>
+            <div class="toggle-row" onclick="toggleField(this, 'DeviceProtection_No internet service')">
+              <span class="toggle-text">No Internet</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="DeviceProtection_No internet service" value="0">
+            </div>
+          </div>
+
+          <div class="toggle-group">
+            <div class="toggle-label">Tech Support</div>
+            <div class="toggle-row" onclick="toggleField(this, 'TechSupport_Yes')">
+              <span class="toggle-text">Active</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="TechSupport_Yes" value="0">
+            </div>
+            <div class="toggle-row" onclick="toggleField(this, 'TechSupport_No internet service')">
+              <span class="toggle-text">No Internet</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="TechSupport_No internet service" value="0">
+            </div>
+          </div>
+
+          <div class="toggle-group">
+            <div class="toggle-label">Streaming</div>
+            <div class="toggle-row" onclick="toggleField(this, 'StreamingTV_Yes')">
+              <span class="toggle-text">TV Active</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="StreamingTV_Yes" value="0">
+            </div>
+            <div class="toggle-row" onclick="toggleField(this, 'StreamingMovies_Yes')">
+              <span class="toggle-text">Movies Active</span>
+              <div class="toggle-switch"></div>
+              <input type="hidden" name="StreamingMovies_Yes" value="0">
+            </div>
+          </div>
+
+          <!-- Hidden "no internet service" streaming -->
+          <input type="hidden" name="StreamingTV_No internet service" value="0">
+          <input type="hidden" name="StreamingMovies_No internet service" value="0">
+
+        </div>
+      </div>
+
+      <!-- Row 3: Contract & Payment -->
+      <div class="form-row">
+        <div class="section-card">
+          <div class="section-title">
+            <div class="icon" style="background:#f59e0b"></div>
+            <span class="step-badge">4</span>
+            Contract
+          </div>
+          <div class="fields-grid cols-1">
+            <div class="field-group">
+              <label>Contract Type</label>
+              <div class="select-wrap">
+                <select name="Contract_od">
+                  <option value="0">Month-to-Month</option>
+                  <option value="1">One Year</option>
+                  <option value="2">Two Year</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title">
+            <div class="icon" style="background:#10b981"></div>
+            <span class="step-badge">5</span>
+            Payment Method
+          </div>
+          <div class="fields-grid cols-1">
+            <div class="field-group">
+              <label>Method</label>
+              <div class="select-wrap">
+                <select name="PaymentMethod" onchange="handlePayment(this)">
+                  <option value="Bank transfer (automatic)">Bank Transfer (Auto)</option>
+                  <option value="Credit card (automatic)">Credit Card (Auto)</option>
+                  <option value="Electronic check">Electronic Check</option>
+                  <option value="Mailed check">Mailed Check</option>
+                </select>
+              </div>
+              <input type="hidden" name="PaymentMethod_Credit card (automatic)" value="0">
+              <input type="hidden" name="PaymentMethod_Electronic check" value="0">
+              <input type="hidden" name="PaymentMethod_Mailed check" value="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="section-card">
+        <div class="submit-section">
+          <button type="submit" class="submit-btn">⚡ Generate Churn Prediction</button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="result-panel" id="resultPanel">
+        <div class="result-label">Churn Probability Score</div>
+        <div class="result-value" id="resultScore">—</div>
+        <div class="result-status" id="resultStatus">Awaiting Input</div>
+        <p style="margin-top:16px; font-size:11px; color:var(--muted);">Connect your ML model endpoint to get real predictions.</p>
+      </div>
+
+    </div>
+  </div>
+  </form>
+</div>
+
+<script>
+  function selectSim(el) {
+    document.querySelectorAll('.sim-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('sim_value').value = el.dataset.sim;
+  }
+
+  function toggleField(row, fieldName) {
+    row.classList.toggle('active');
+    const input = row.querySelector('input[type="hidden"]');
+    input.value = row.classList.contains('active') ? '1' : '0';
+  }
+
+  function handleInternetService(sel) {
+    document.querySelector('[name="InternetService_Fiber optic"]').value = sel.value === 'Fiber optic' ? '1' : '0';
+    document.querySelector('[name="InternetService_No"]').value = sel.value === 'No' ? '1' : '0';
+  }
+
+  function handlePayment(sel) {
+    document.querySelector('[name="PaymentMethod_Credit card (automatic)"]').value = sel.value === 'Credit card (automatic)' ? '1' : '0';
+    document.querySelector('[name="PaymentMethod_Electronic check"]').value = sel.value === 'Electronic check' ? '1' : '0';
+    document.querySelector('[name="PaymentMethod_Mailed check"]').value = sel.value === 'Mailed check' ? '1' : '0';
+  }
+
+  document.getElementById('churnForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const sim = document.getElementById('sim_value').value;
+    if (!sim) { alert('Please select a network provider.'); return; }
+
+    // Collect all form data
+    const data = new FormData(this);
+    const payload = {};
+    for (let [k, v] of data.entries()) { payload[k] = v; }
+    console.log('Payload:', payload);
+
+    // Demo result (replace with real API call)
+    const score = (Math.random() * 60 + 20).toFixed(1);
+    const panel = document.getElementById('resultPanel');
+    document.getElementById('resultScore').textContent = score + '%';
+    const status = document.getElementById('resultStatus');
+    if (parseFloat(score) > 50) {
+      status.textContent = '⚠ High Churn Risk';
+      status.className = 'result-status high';
+    } else {
+      status.textContent = '✓ Low Churn Risk';
+      status.className = 'result-status low';
+    }
+    panel.classList.add('show');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
+</body>
+</html>

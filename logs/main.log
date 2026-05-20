@@ -1,0 +1,110 @@
+2026-04-03 18:07:06,658 - INFO - total data shape: (7043, 21)
+2026-04-03 18:07:06,658 - INFO - total column names before adding: Index(['customerID', 'gender', 'SeniorCitizen', 'Partner', 'Dependents',
+       'tenure', 'PhoneService', 'MultipleLines', 'InternetService',
+       'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport',
+       'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling',
+       'PaymentMethod', 'MonthlyCharges', 'TotalCharges', 'Churn'],
+      dtype='str')
+2026-04-03 18:07:06,663 - INFO - ---------------------------------------------------------------------
+2026-04-03 18:07:06,663 - INFO - total column names after adding: Index(['customerID', 'gender', 'SeniorCitizen', 'Partner', 'Dependents',
+       'tenure', 'PhoneService', 'MultipleLines', 'InternetService',
+       'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport',
+       'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling',
+       'PaymentMethod', 'MonthlyCharges', 'TotalCharges', 'Churn',
+       'sim_column'],
+      dtype='str')
+2026-04-03 18:07:06,663 - INFO - ----------------------------------------------------------------------------------------------------
+2026-04-03 18:07:06,663 - INFO - dividing the data into dependent and independent columns
+2026-04-03 18:07:06,666 - INFO - independent columns:Index(['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure',
+       'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
+       'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
+       'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod',
+       'MonthlyCharges', 'TotalCharges', 'sim_column'],
+      dtype='str')
+2026-04-03 18:07:06,666 - INFO - dependent columns:Churn
+2026-04-03 18:07:06,668 - INFO - dividing the data into x_train,x_test,y_train,y_test
+2026-04-03 18:07:06,674 - INFO - x_train:5634, y_train:5634, x_test:1409, y_test:1409
+2026-04-03 18:07:06,676 - INFO - null values in x_train:0null values in x_test:0
+2026-04-03 18:07:06,679 - INFO - Before handling the null values
+2026-04-03 18:07:06,679 - INFO - the no of null values in the x_train[TotalCharges]:10
+2026-04-03 18:07:06,679 - INFO - the no of null values in the x_test[TotalCharges]:1
+2026-04-03 18:07:06,695 - INFO - After handling the null values
+2026-04-03 18:07:06,695 - INFO - the no of null values in the x_train[TotalCharges]:0
+2026-04-03 18:07:06,695 - INFO - the no of null values in the x_test[totalcharges]:0
+2026-04-03 18:07:06,695 - INFO - ----------------------------------------------------------
+2026-04-03 18:07:06,695 - INFO - Index(['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges'], dtype='str')
+2026-04-03 18:07:06,695 - INFO - Index(['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges'], dtype='str')
+2026-04-03 18:07:06,695 - INFO - Index(['gender', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines',
+       'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection',
+       'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract',
+       'PaperlessBilling', 'PaymentMethod', 'sim_column'],
+      dtype='str')
+2026-04-03 18:07:06,695 - INFO - Index(['gender', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines',
+       'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection',
+       'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract',
+       'PaperlessBilling', 'PaymentMethod', 'sim_column'],
+      dtype='str')
+2026-04-03 18:07:06,695 - INFO - before columns:Index(['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges'], dtype='str')
+2026-04-03 18:07:06,695 - INFO - before columns:Index(['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges'], dtype='str')
+2026-04-03 18:07:06,770 - INFO - after columns:Index(['SeniorCitizen', 'TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')
+2026-04-03 18:07:06,770 - INFO - after columns:Index(['SeniorCitizen', 'TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')
+2026-04-03 18:07:06,770 - INFO - x_train_numerical columns=Index(['SeniorCitizen', 'TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')
+2026-04-03 18:07:06,853 - INFO - x_train_numerical columns=Index(['TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')
+2026-04-03 18:07:06,853 - INFO - x_test_numerical_columns=Index(['TotalCharges_var_trim', 'MonthlyCharges_boxcox_trim',
+       'tenure_scaled_trim'],
+      dtype='str')
+2026-04-03 18:07:06,853 - INFO - before one hot encoding x_train column names :Index(['gender', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines',
+       'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection',
+       'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract',
+       'PaperlessBilling', 'PaymentMethod', 'sim_column'],
+      dtype='str')
+2026-04-03 18:07:06,853 - INFO - before one hot encoding x_test column names :Index(['gender', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines',
+       'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection',
+       'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract',
+       'PaperlessBilling', 'PaymentMethod', 'sim_column'],
+      dtype='str')
+2026-04-03 18:07:06,906 - INFO - after one hot encoding x_train column names :Index(['gender_Male', 'Partner_Yes', 'Dependents_Yes', 'PhoneService_Yes',
+       'MultipleLines_No phone service', 'MultipleLines_Yes',
+       'InternetService_Fiber optic', 'InternetService_No',
+       'OnlineSecurity_No internet service', 'OnlineSecurity_Yes',
+       'OnlineBackup_No internet service', 'OnlineBackup_Yes',
+       'DeviceProtection_No internet service', 'DeviceProtection_Yes',
+       'TechSupport_No internet service', 'TechSupport_Yes',
+       'StreamingTV_No internet service', 'StreamingTV_Yes',
+       'StreamingMovies_No internet service', 'StreamingMovies_Yes',
+       'PaperlessBilling_Yes', 'PaymentMethod_Credit card (automatic)',
+       'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check',
+       'sim_column_BSNL', 'sim_column_Idea', 'sim_column_Reliancejio',
+       'Contract_od'],
+      dtype='str')
+2026-04-03 18:07:06,906 - INFO - after one hot encoding x_test column names :Index(['gender_Male', 'Partner_Yes', 'Dependents_Yes', 'PhoneService_Yes',
+       'MultipleLines_No phone service', 'MultipleLines_Yes',
+       'InternetService_Fiber optic', 'InternetService_No',
+       'OnlineSecurity_No internet service', 'OnlineSecurity_Yes',
+       'OnlineBackup_No internet service', 'OnlineBackup_Yes',
+       'DeviceProtection_No internet service', 'DeviceProtection_Yes',
+       'TechSupport_No internet service', 'TechSupport_Yes',
+       'StreamingTV_No internet service', 'StreamingTV_Yes',
+       'StreamingMovies_No internet service', 'StreamingMovies_Yes',
+       'PaperlessBilling_Yes', 'PaymentMethod_Credit card (automatic)',
+       'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check',
+       'sim_column_BSNL', 'sim_column_Idea', 'sim_column_Reliancejio',
+       'Contract_od'],
+      dtype='str')
+2026-04-03 18:07:06,906 - INFO - ------------------------------combining the train data and test data-----------------------------------------
+2026-04-03 18:07:06,906 - INFO - total columns in x_train=(5634, 31)
+2026-04-03 18:07:06,906 - INFO - total columns in x_test=(1409, 31)
+2026-04-03 18:07:06,906 - INFO - Number of Rows for Good Customer 1 : 1496
+2026-04-03 18:07:06,910 - INFO - Number of Rows for Bad Customer 0 : 4138
+2026-04-03 18:07:06,910 - INFO - Training data size : (5634, 31)
+2026-04-03 18:07:11,660 - INFO - Number of Rows for Good Customer 1 : 4138
+2026-04-03 18:07:11,660 - INFO - Number of Rows for Bad Customer 0 : 4138
+2026-04-03 18:07:11,660 - INFO - Training data size : (8276, 31)
